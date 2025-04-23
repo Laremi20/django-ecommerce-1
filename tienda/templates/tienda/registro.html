@@ -1,0 +1,15 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+
+{% block title %}Registro{% endblock %}
+{% block header %}Crear una cuenta 🧑‍💻{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Registrarse</button>
+    </form>
+</div>
+{% endblock %}

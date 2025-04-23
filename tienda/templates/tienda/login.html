@@ -1,0 +1,15 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+
+{% block title %}Iniciar sesión{% endblock %}
+{% block header %}Accede a tu cuenta 🔐{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Iniciar sesión</button>
+    </form>
+</div>
+{% endblock %}

@@ -8,15 +8,34 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <header>
-        <h1>{% block header %}Bienvenido a la tienda de Ignacio 🛒{% endblock %}</h1>
-    </header>
+    <div class="page-container">
+        <header>
+            <nav class="navbar">
+                <div class="nav-logo"><a href="{% url 'inicio' %}">LaTienda</a></div>
+                <ul class="nav-links">
+                    <li><a href="{% url 'inicio' %}">Inicio</a></li>
+                    <li><a href="{% url 'ver_carrito' %}">Carrito</a></li>
+                    <li><a href="{% url 'finalizar_compra' %}">Finalizar Compra</a></li>
+                    {% if user.is_authenticated %}
+                        <li>Hola, {{ user.username }}!</li>
+                        <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                        <li><a href="{% url 'registro' %}">Registrarse</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <h1>{% block header %}Bienvenido a la tienda de Ignacio 🛒{% endblock %}</h1>
+        </header>
 
-    <main>
-        {% block content %}
-        <!-- Contenido específico de cada página -->
-        {% endblock %}
-    </main>
+        <main class="contenido">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <p>© {{ now|date:"Y" }} Ignacio Dev - Todos los derechos reservados.</p>
+        </footer>
+    </div>
 
     <script src="{% static 'tienda/js/base.js' %}"></script>
 </body>

@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from .models import Producto
 
 # Create your views here.
@@ -6,6 +9,17 @@ from .models import Producto
 def inicio(request):
     productos = Producto.objects.all()
     return render(request, 'tienda/inicio.html', {'productos': productos})
+
+def registro(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            usuario = form.save()
+            login(request, usuario)
+            return redirect('inicio')
+    else:
+        form = UserCreationForm()
+    return render(request, 'tienda/registro.html', {'form': form})
 
 def detalle_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
@@ -41,6 +55,7 @@ def vaciar_carrito(request):
     request.session['carrito'] = {}
     return redirect('ver_carrito')
 
+@login_required
 def finalizar_compra(request):
     carrito = request.session.get('carrito', {})
     productos = []
