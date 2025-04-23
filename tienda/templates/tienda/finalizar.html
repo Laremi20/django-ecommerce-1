@@ -1,0 +1,27 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+
+{% block title %}Resumen de Pedido{% endblock %}
+
+{% block header %}Finalizar Compra 🧾{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tienda/css/finalizar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="finalizar-container">
+    <h2>Resumen del Pedido</h2>
+    <ul>
+        {% for item in productos_carrito %}
+            <li>
+                {{ item.producto.nombre }} x{{ item.cantidad }} - ${{ item.subtotal }}
+            </li>
+        {% endfor %}
+    </ul>
+    <p class="total"><strong>Total a pagar:</strong> ${{ total }}</p>
+    <a href="{% url 'confirmacion_pedido' %}">
+        <button class="confirmar">Confirmar Compra</button>
+    </a>
+</div>
+{% endblock %}

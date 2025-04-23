@@ -1,0 +1,37 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+
+{% block title %}
+Carrito de Compras
+{% endblock %}
+
+{% block header %}
+Tu carrito de compras 🧺
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tienda/css/carrito.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="carrito-container">
+    {% if productos_carrito %}
+        <ul class="carrito-lista">
+            {% for item in productos_carrito %}
+                <li class="carrito-item">
+                    <span class="nombre">{{ item.producto.nombre }}</span>
+                    <span class="cantidad">x{{ item.cantidad }}</span>
+                    <span class="subtotal">${{ item.subtotal }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="total-container">
+            <p><strong>Total:</strong> ${{ total }}</p>
+            <a href="{% url 'finalizar_compra' %}" class="confirmar">Finalizar compra</a>
+            <a href="{% url 'vaciar_carrito' %}" class="vaciar">Vaciar carrito</a>
+        </div>
+    {% else %}
+        <p class="vacio">Tu carrito está vacío.</p>
+    {% endif %}
+</div>
+{% endblock %}

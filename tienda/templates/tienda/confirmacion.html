@@ -1,0 +1,13 @@
+{% extends 'tienda/base.html' %}
+{% load static %}
+
+{% block title %}Compra Confirmada{% endblock %}
+
+{% block header %}¡Gracias por tu compra! 🙌{% endblock %}
+
+{% block content %}
+<div class="confirmacion-container">
+    <p>Tu pedido ha sido confirmado exitosamente.</p>
+    <a href="{% url 'inicio' %}">Volver al inicio</a>
+</div>
+{% endblock %}
